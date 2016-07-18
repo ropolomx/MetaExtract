@@ -10,7 +10,7 @@ Entrez.email = "r.ortegapolo@uleth.ca"
 
 id_list = 
 
-serotype_dict = defaultdict(list)
+sero_dict = defaultdict(list)
 
 handle = Entrez.efetch(db="nuccore", id=id_list, rettype="gb", retmode="text")
 
@@ -18,7 +18,7 @@ for record in SeqIO.parse(handle, "gb"):
     serotype = 'Untyped'
     for feature in record.features:
         if 'serotype' in feature.qualifiers:
-            serotype = feature.qualifiers['serotype']
+            serotype = feature.qualifiers['serotype'][0]
     sero_dict[record.name].append(serotype)
 
 handle.close()
